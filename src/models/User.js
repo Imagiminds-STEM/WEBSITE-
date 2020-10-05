@@ -1,35 +1,52 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const bcrypt = require("bcryptjs");
+const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require("uuid");
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-      },
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-  ],
-});
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 6,
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    courses: [
+      {
+        course: {
+          type: Schema.Types.ObjectId,
+          ref: "Course",
+        },
+      },
+    ],
+    coupon: { type: String, default: uuidv4() },
+    isAdmin: {
+      // they have full access to the courses they can remove any course
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true, autoIndex: true }
+);
 
+// for a particular user
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const JWT_SECRET = config.get("JWT_SECRET");
@@ -39,7 +56,7 @@ userSchema.methods.generateAuthToken = async function () {
     },
   };
 
-  const token = await jwt.sign(payload, JWT_SECRET, { expiresIn: 360000 });
+  const token = await jwt.sign(payload, JWT_SECRET, { expiresIn: "2 days" });
 
   user.tokens = user.tokens.concat({ token });
 
@@ -48,9 +65,9 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
+// for the entire model
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
-
   if (!user) {
     throw new Error("Incorrect password/username field");
   }

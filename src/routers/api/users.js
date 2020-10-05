@@ -103,6 +103,25 @@ router.get("/", auth, (req, res) => {
   res.send(req.user);
 });
 
+// @route   POST api/users/enroll/:id
+// @desc    Enroll into a course
+// @access  Private
+// @tested yes
+router.post("/enroll/:id", auth, async (req, res) => {
+  try {
+    const course_Id = req.params.id;
+    const user = req.user;
+    let courses = user.courses;
+    // if successfull transaction or valid +coupon
+    courses.push({ course: course_Id });
+    await user.save();
+    res.send({ msg: "Enrolled into the course successfully" });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ error: "Server error" });
+  }
+});
+
 // @route   POST api/users/logout
 // @desc    Logout user
 // @access  Private
