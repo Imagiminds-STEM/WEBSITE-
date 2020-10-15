@@ -91,10 +91,55 @@ router.post(
     } catch (e) {
       res
         .status(500)
-        .send({ errors: [{ msg: "Incorrect usernam/password field" }] });
+        .send({ errors: [{ msg: "Incorrect username/password field" }] });
     }
   }
 );
+
+
+router.post("/forgot",async(req,res)=>{
+  var e=req.body.email;
+  const user = await User.findByEmail(e);
+  if(!user){
+    return res
+          .status(404)
+          .json({ errors: [{ msg: "User doesn't exist" }] });
+  }
+  const token =user.generateAuthToken();
+  let mailDetails={
+    from :'email',
+    to : e,
+    subject :'Reset password',
+    html : '<a href="http://localhost:5000/resetpassword?email='+e+'&token='+token+'">Reset password</a>'
+  };
+    
+  transporter.sendMail(mailDetails,(err,data)=>{
+      if(err)
+          console.log(err);
+      else
+          console.log("mail sent");
+  })
+ // res.send("check your inbox"); 
+ res.redirect("/");  
+})
+
+router.post("/finalreset",async(req,res)=>{
+  console.log(req.body.email);
+  console.log(req.body.password);
+  var e = req.body.email;
+  var p = req.body.password;
+  const user = await User.findByEmail(req.body.email);
+  console.log(user.email+" "+user.password);
+  user.password=p;
+  await user.save();
+  console.log(user.email+" "+user.password);
+  res.redirect("/login");
+
+ // res.send("check your inbox"); 
+ res.redirect("/");  
+})
+
+
 
 // @route   GET api/users
 // @desc    Get yourself
