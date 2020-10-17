@@ -1,0 +1,37 @@
+#message{
+    display:none;
+    position:relative;
+    left:10px;
+}
+
+#message p{
+    padding:10px 35px;;
+}
+
+.invalid{
+    color:red;
+}
+
+.valid::before {
+    position: relative;
+    left: -36px;
+    content: "✔";
+  }
+
+.valid{
+    color:green;
+}
+
+.invalid::before {
+    position: relative;;
+    left: -35px;
+    content: "X";
+  }
+
+#exist-msg{
+    color:red;
+}
+
+#demo{
+    color:white;
+}
