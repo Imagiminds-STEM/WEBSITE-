@@ -209,7 +209,6 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.get("/reset-password", (req, res) => {
   res.sendFile(".../Imagi1/reset.html");
 });
@@ -228,21 +227,17 @@ router.get("/resetpassword", async (req, res) => {
   }
 });
 
-=======
+router.get("/reset-password", (req, res) => {
+  res.sendFile("reset.html", { root: "./Imagi1/" });
+});
 
-
-router.get("/reset-password",(req,res)=>{
-  res.sendFile("reset.html",{root:"./Imagi1/"})
-})
-
-router.get("/resetpassword",async(req,res)=>{
-  var e=req.query.email;
-  var token=req.query.token;
+router.get("/resetpassword", async (req, res) => {
+  var e = req.query.email;
+  var token = req.query.token;
   const user = await User.findByEmail(e);
   var t = user.generateAuthToken();
-  if(t==token){
-    res.sendFile("password_reset.html",{root:"./Imagi1/"})
+  if (t == token) {
+    res.sendFile("password_reset.html", { root: "./Imagi1/" });
   }
-})
->>>>>>> 6bf1e5ec32ed50d7dc4d8dd6b18d7aa0fbb17f71
+});
 module.exports = router;
