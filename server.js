@@ -17,6 +17,18 @@ app.get("/events", (req, res) => {
   res.sendFile(path.join(__dirname, "./Imagi1/events.html"));
 });
 
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Imagi1/about.html"));
+});
+
+app.get("/courses", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Imagi1/courses.html"));
+});
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Imagi1/contact.html"));
+});
+
 // middleware
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
