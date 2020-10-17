@@ -28,7 +28,7 @@ router.post("/contact", (req, res) => {
   const postData = JSON.stringify(data);
 
   const options = {
-    url: `https://us4.api.mailchimp.com/3.0/lists/${list_id}`,
+    url: `https://us2.api.mailchimp.com/3.0/lists/${list_id}`,
     method: "POST",
     headers: {
       Authorization: `auth ${api_key}`,
