@@ -99,30 +99,41 @@ router.post(
 // @route   POST api/users/login
 // @desc    Login user
 // @access  Public
-router.post("/login", async (req, res) => {
-  try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).send({ errors: errors.array() });
-    }
+router.post(
+  "/login",
+  [
+    check("email", "Email is required").not().isEmpty(),
+    check("password", "Password is required").not().isEmpty(),
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ errors: errors.array() });
+      }
 
-    console.log(req.body);
-    const user = await User.findByCredentials(
-      req.body.email,
-      req.body.password
-    );
-    if (!user) {
-      return res.status(404).json({ errors: [{ msg: "User doesn't exist" }] });
-    }
+      console.log(req.body);
+      const user = await User.findByCredentials(
+        req.body.email,
+        req.body.password
+      );
+      if (!user) {
+        return res
+          .status(404)
+          .json({ errors: [{ msg: "User doesn't exist" }] });
+      }
 
-    const token = await user.generateAuthToken();
-    res.status(200).json({ msg: "User logged in successfully!", user, token });
-  } catch (e) {
-    res
-      .status(500)
-      .send({ errors: [{ msg: "Incorrect username/password field" }] });
+      const token = await user.generateAuthToken();
+      res
+        .status(200)
+        .json({ msg: "User logged in successfully!", user, token });
+    } catch (e) {
+      res
+        .status(500)
+        .send({ errors: [{ msg: "Incorrect username/password field" }] });
+    }
   }
-});
+);
 
 router.post("/forgot", async (req, res) => {
   var e = req.body.email;
