@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./src/db/mongoose");
 const path = require("path");
 const userRouter = require("./src/routers/api/users");
+const publicRouter = require("./src/routers/publicRoutes/publicRouter");
 
 const app = express();
 
@@ -16,6 +17,10 @@ app.get("/", (req, res) => {
 
 app.get("/events", (req, res) => {
   res.sendFile(path.join(__dirname, "./Imagi1/events.html"));
+});
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Imagi1/contact.html"));
 });
 
 app.get("/about", (req, res) => {
@@ -35,6 +40,7 @@ app.get("/register", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/publicRoutes", publicRouter);
 
 // middleware
 app.use(express.json({ extended: false }));
