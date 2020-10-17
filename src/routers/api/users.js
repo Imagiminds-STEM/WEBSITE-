@@ -50,6 +50,36 @@ router.post(
       // Register user
       await newUser.save();
 
+      //email verification
+      var date = new Date();
+      var mail = {
+            "email": email,
+            "created": date.toString()
+            }
+
+      const token_mail_verification = jwt.sign(email, config.JWT_SECRET, { });
+
+      //var url = config.baseUrl + "verify?email=" + token_mail_verification;
+
+
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+          from: '"Name" <email>', // sender address
+          to: email, 
+          subject: "Welcome to Imagiminds", // Subject line
+          text: "Thank you for creating an account with Imagiminds" //+ url,  plain text body
+      }, (error, info) => {
+
+      if (error) {
+          console.log(error)
+          return;
+      }
+      console.log('Message sent successfully!');
+      console.log(info);
+      transporter.close();
+      });
+      //email verification
+      
       // Send msg to client
       res.status(201).send({ user: newUser, token });
     } catch (e) {
