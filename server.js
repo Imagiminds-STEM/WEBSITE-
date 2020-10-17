@@ -32,7 +32,6 @@ app.get("/contact", (req, res) => {
 // middleware
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(__dirname + "/Imagi1"));
 
 // Define routes
 //app.use("/api/users", require("./src/routers/api/users"));
