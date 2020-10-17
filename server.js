@@ -13,9 +13,13 @@ app.get("/", (req, res) => {
 // middleware
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(__dirname+"/Imagi1"));
 
 // Define routes
-app.use("/api/users", require("./src/routers/api/users"));
+//app.use("/api/users", require("./src/routers/api/users"));
+var users = require("./src/routers/api/users.js");
+app.use("/",users);
+
 
 const PORT = process.env.PORT || 5000;
 
