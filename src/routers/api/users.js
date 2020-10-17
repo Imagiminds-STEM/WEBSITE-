@@ -4,6 +4,7 @@ const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
 const gravatar = require("gravatar");
 const auth = require("../../middleware/auth");
+var path = require('path');
 
 // @route   POST api/users
 // @desc    Register user
@@ -212,5 +213,56 @@ router.post("/logout", auth, async (req, res) => {
     res.status(500).send({ error: e || "Server error" });
   }
 });
+
+var pathway = "Imagi1/";
+
+router.get("/",(req, res) => {
+  //console.log(__dirname);
+  res.sendFile(path.join(pathway,"index.html"));
+});
+
+router.get("/register",(req,res)=>{
+  console.log("\n",__dirname);
+  res.sendFile("register.html",{root:pathway});
+})
+
+router.get("/login",(req,res)=>{
+  res.sendFile(".../Imagi1/login.html");
+})
+
+router.get("/about",(req,res)=>{
+  res.sendFile(".../Imagi1/about.html");
+})
+
+router.get("/contact",(req,res)=>{
+  res.sendFile(".../Imagi1/contact.html");
+})
+
+router.get("/events",(req,res)=>{
+  res.sendFile(".../Imagi1/events.html");
+})
+
+router.get("/courses",(req,res)=>{
+  res.sendFile(".../Imagi1/courses.html");
+})
+
+router.get("/reset-password",(req,res)=>{
+  res.sendFile(".../Imagi1/reset.html");
+})
+
+router.get("/resetpassword",async(req,res)=>{
+  //console.log(req.query.email);
+  var e=req.query.email;
+  var token=req.query.token;
+  const user = await User.findByEmail(e);
+  var t = user.generateAuthToken();
+  //console.log(token);
+   /*if(t==token)
+    res.sendFile(path.join(__dirname,"password_reset.html")); */
+  if(t==token){
+    res.sendFile(".../Imagi1/password_reset.html")
+  }
+})
+
 
 module.exports = router;
