@@ -1,6 +1,6 @@
 To start the application
 
-npm run start 
+``npm run start``
 
 from the root directory
 
