@@ -6,6 +6,19 @@ const gravatar = require("gravatar");
 const auth = require("../../middleware/auth");
 var path = require('path');
 
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+  service : "gmail",
+  auth :{
+      user:'email',
+      pass:'password'
+  },
+  tls :{
+      rejectUnauthorized : false
+  }
+});
+
 // @route   POST api/users
 // @desc    Register user
 // @access  Public
