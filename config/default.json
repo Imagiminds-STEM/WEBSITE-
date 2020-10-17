@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://devanshi:devanshi1234@cluster0.qkqxg.mongodb.net/db?retryWrites=true&w=majority",
+  "JWT_SECRET": "uncrackablycrackablecode"
+}

@@ -2550,7 +2550,7 @@ hr {
 }
 .slider-area,
 .slider-area2 {
-  background-image: url(../img/hero/h1_hero.png);
+  background-image: url(../img/hero/hero2.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -2876,9 +2876,8 @@ hr {
     margin-right: 20px;
   }
 }
-.about-area1 .support-wrapper .right-content1 .right-img img 
-{
-    width: 100%;
+.about-area1 .support-wrapper .right-content1 .right-img img {
+  width: 100%;
 }
 
 .about-area2 .support-wrapper {
@@ -2886,10 +2885,10 @@ hr {
   justify-content: start;
   flex-wrap: wrap;
 }
- .facts-img {
-    text-align: center;
-    padding-top: 30px;
-  }
+.facts-img {
+  text-align: center;
+  padding-top: 30px;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .about-area2 .support-wrapper {
     display: block;
