@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://devanshi:devanshi1234@cluster0.qkqxg.mongodb.net/db?retryWrites=true&w=majority",
-  "JWT_SECRET": "uncrackablycrackablecode"
+  "JWT_SECRET": "uncrackablycrackablecode",
+  "api_key":"6b0b64ec209f1d0d22b2fa4b03e49f93-us2",
+  "list_id":"0a50fb027a"
 }

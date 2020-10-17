@@ -2,14 +2,6 @@ const express = require("express");
 const router = new express.Router();
 const request = require("request");
 
-router.get("/", (req, res) => {
-  res.render("home", {});
-});
-
-router.get("/enter", (req, res) => {
-  res.render("enter", {});
-});
-
 const config = require("config");
 const api_key = config.api_key;
 const list_id = config.list_id;
@@ -22,7 +14,7 @@ router.post("/contact", (req, res) => {
     members: [
       {
         email_address: email,
-        status: "unsubscribed",
+        status: "subscribed",
         merge_fields: {
           FNAME: name,
           PHONE: contact,
@@ -43,6 +35,7 @@ router.post("/contact", (req, res) => {
   };
 
   request(options, (err, response, body) => {
+    if (err) console.log(err);
     // if (err) {
     //   res.redirect("/failure");
     // } else {
