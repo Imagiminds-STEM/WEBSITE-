@@ -9,6 +9,8 @@ const list_id = config.list_id;
 router.post("/contact", (req, res) => {
   const { name, contact, email } = req.body;
 
+  console.log(list_id);
+  console.log(api_key);
   // Construct req data
   const data = {
     members: [
@@ -36,6 +38,7 @@ router.post("/contact", (req, res) => {
 
   request(options, (err, response, body) => {
     if (err) console.log(err);
+    console.log(response.statusCode);
     // if (err) {
     //   res.redirect("/failure");
     // } else {
