@@ -153,7 +153,13 @@ router.post("/forgot", async (req, res) => {
     else console.log("mail sent");
   });
   // res.send("check your inbox");
-  res.redirect("/");
+  //res.redirect("/");
+  function f1()
+  {
+    res.redirect("/");
+  }
+
+  setTimeout(f1,4000000);
 });
 
 router.post("/finalreset", async (req, res) => {
@@ -166,10 +172,15 @@ router.post("/finalreset", async (req, res) => {
   user.password = p;
   await user.save();
   console.log(user.email + " " + user.password);
-  res.redirect("/login");
+ // res.redirect("/login");
+   function f2()
+  {
+    res.redirect("/login"); 
+  }
+  setTimeout(f2,4000000);
 
   // res.send("check your inbox");
-  res.redirect("/");
+ // res.redirect("/");
 });
 
 // @route   GET api/users
