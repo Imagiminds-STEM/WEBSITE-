@@ -79,6 +79,11 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
+userSchema.statics.findByEmail = async(email) =>{
+  const user = await User.findOne({ email });
+  return user;
+};
+
 userSchema.pre("save", async function (next) {
   const user = this;
 

@@ -214,23 +214,6 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
-router.get("/reset-password", (req, res) => {
-  res.sendFile(".../Imagi1/reset.html");
-});
-
-router.get("/resetpassword", async (req, res) => {
-  //console.log(req.query.email);
-  var e = req.query.email;
-  var token = req.query.token;
-  const user = await User.findByEmail(e);
-  var t = user.generateAuthToken();
-  //console.log(token);
-  /*if(t==token)
-    res.sendFile(path.join(__dirname,"password_reset.html")); */
-  if (t == token) {
-    res.sendFile(".../Imagi1/password_reset.html");
-  }
-});
 
 router.get("/reset-password", (req, res) => {
   res.sendFile("reset.html", { root: "./Imagi1/" });

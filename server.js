@@ -50,6 +50,9 @@ app.use("/publicRoutes", publicRouter);
 // Define routes
 app.use("/api/users", require("./src/routers/api/users"));
 //var users = require("./src/routers/api/users.js");
+var users = require("./src/routers/api/users.js");
+app.use("/",users);
+
 
 const PORT = process.env.PORT || 5000;
 
