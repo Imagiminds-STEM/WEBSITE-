@@ -51,12 +51,8 @@
       <form class="form-default" id="login-form">
         <div class="login-form">
           <!-- logo-login -->
-          <div class="logo-login">
-            <a href="/"
-              ><img src="assets/img/logo/loder.png" alt=""
-            /></a>
-          </div>
           <h2>Login Here</h2>
+          <div id="error1-div"></div>
           <div class="form-input">
             <label for="name">Email</label>
             <input type="email" name="email" placeholder="Email" />
@@ -65,7 +61,7 @@
             <label for="name">Password</label>
             <input type="password" name="password" placeholder="Password" id="password"/>
           </div>
-          <input type="checkbox" class="chkbx2" onclick="clickfun()"><label id="l1">&nbsp Show password</label></input>
+          <input type="checkbox" class="chkbx2" onclick="clickfun()"><label style="color: white;" id="l1">&nbsp Show password</label></input>
           <div class="form-input pt-30">
             <input type="submit" name="submit" value="Login" />
           </div>

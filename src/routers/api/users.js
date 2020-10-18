@@ -116,10 +116,11 @@ router.post("/login", async (req, res) => {
       req.body.password
     );
     if (!user) {
-      return res.status(404).json({ errors: [{ msg: "User doesn't exist" }] });
+      return res.status(404).json({ errors: [{ msg: "No such user exists" }] });
     }
 
     const token = await user.generateAuthToken();
+
     res.status(200).json({ msg: "User logged in successfully!", user, token });
   } catch (e) {
     res

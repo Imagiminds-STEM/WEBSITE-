@@ -6,6 +6,7 @@ registerationForm.addEventListener("submit", async (e) => {
   const name = e.target.name.value;
   const email = e.target.email.value;
   const password = e.target.password1.value;
+
   // console.log(e.target.name.value);
   // console.log(e.target.email.value);
   // console.log(e.target.password1.value);
@@ -23,7 +24,6 @@ registerationForm.addEventListener("submit", async (e) => {
     );
     // console.log(res.data);
 
-    console.log(errors);
     var para = document.createElement("P");
     para.innerText = "You have been registered successfully";
     para.style.color = "black";

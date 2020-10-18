@@ -1,4 +1,5 @@
 const loginForm = document.getElementById("login-form");
+const errorsDiv = document.getElementById("error1-div");
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -15,12 +16,24 @@ loginForm.addEventListener("submit", async (e) => {
       { email, password },
       config
     );
-    alert("You have been logged in successfully");
+
+    var para = document.createElement("P");
+    para.innerText = "You have been logged in successfully";
+    para.style.color = "black";
+    para.style.margin = "10px auto";
+    para.style.background = "white";
+    errorsDiv.appendChild(para);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach((error) => {
-        alert(error.msg);
+        var para = document.createElement("P");
+        var t = document.createTextNode(error.msg);
+        para.style.color = "white";
+        para.style.margin = "10px auto";
+        para.style.background = "black";
+        para.appendChild(t);
+        errorsDiv.appendChild(para);
       });
     }
   }
