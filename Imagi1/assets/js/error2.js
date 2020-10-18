@@ -1,5 +1,5 @@
 const registerationForm = document.getElementById("reg-form");
-var errors = document.getElementById("error2-div");
+const errorsDiv = document.getElementById("error2-div");
 
 registerationForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -23,10 +23,13 @@ registerationForm.addEventListener("submit", async (e) => {
     );
     // console.log(res.data);
 
+    console.log(errors);
     var para = document.createElement("P");
-    var t = document.createTextNode("You have registered successfully");
-    para.appendChild(t);
-    errors.appendChild(para);
+    para.innerText = "You have been registered successfully";
+    para.style.color = "black";
+    para.style.margin = "10px auto";
+    para.style.background = "white";
+    errorsDiv.appendChild(para);
 
     setTimeout(20, () => {
       window.location.href = "http://localhost:5000";
@@ -35,7 +38,13 @@ registerationForm.addEventListener("submit", async (e) => {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach((error) => {
-        alert(error.msg);
+        var para = document.createElement("P");
+        var t = document.createTextNode(error.msg);
+        para.style.color = "white";
+        para.style.margin = "10px auto";
+        para.style.background = "black";
+        para.appendChild(t);
+        errorsDiv.appendChild(para);
       });
     }
   }

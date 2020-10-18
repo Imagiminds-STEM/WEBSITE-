@@ -47,13 +47,10 @@ router.post(
       // Look if user with this email id already exists
       const { name, email, password } = req.body;
       let user = await User.findOne({ email });
-      console.log(user);
       if (user) {
-        return res
-          .status(400)
-          .json({
-            errors: [{ msg: "Verification email has been sent to you" }],
-          });
+        return res.status(400).json({
+          errors: [{ msg: "Verification email has been sent to you" }],
+        });
       }
 
       // Generate a token for the user
@@ -88,7 +85,7 @@ router.post(
             return;
           }
           console.log("Message sent successfully!");
-          console.log(info);
+          // console.log(info);
           transporter.close();
         }
       );

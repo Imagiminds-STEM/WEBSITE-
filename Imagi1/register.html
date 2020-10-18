@@ -54,34 +54,28 @@
           <!-- logo-login -->
 
           <h2 style="margin: 0 auto">Registration Here</h2>
-          <div class="error2-div"></div>
+          <div id="error2-div"></div>
           <span id="msg"></span>
 
           <div class="form-input">
-            <label for="name">Full name</label>
             <input type="text" name="name" placeholder="Full name" />
           </div>
           <div class="form-input">
-            <label for="name">Email Address</label>
             <input type="email" name="email" placeholder="Email Address" />
           </div>
           <div class="form-input">
-            <label for="password1">Password</label>
             <input
               type="password"
               name="password1"
               placeholder="Password"
               id="p1"
-              onkeyup="typefun()"
-              onfocus="focusfun()"
-              onblur="blurfun()"
               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
               placeholder="Password"
               required
             />
+            <!--onkeyup="typefun()"onfocus="focusfun()"onblur="blurfun()"-->
           </div>
           <div class="form-input">
-            <label for="password2">Confirm Password</label>
             <input
               type="password"
               name="password2"
@@ -93,14 +87,6 @@
               required
             />
           </div>
-          <span>
-            <a href="/login" class="registration"
-              >Already a member? Click here</a
-            >
-            <!-- <input type="checkbox" class="chkbx2" onclick="clickfun()"></input> -->
-            <!-- <label id="l1" style="color:white">&nbsp Show password</label> -->
-            <!-- Forget Password -->
-          </span>
 
           <div
             class="form-input pt-30"
@@ -108,7 +94,15 @@
           >
             <input type="submit" name="submit" />
           </div>
-          <div id="message">
+          <span style="text-align: center">
+            <a style="margin: 30px auto" href="/login" class="registration"
+              >Already a member? Click here</a
+            >
+            <!-- <input type="checkbox" class="chkbx2" onclick="clickfun()"></input> -->
+            <!-- <label id="l1" style="color:white">&nbsp Show password</label> -->
+            <!-- Forget Password -->
+          </span>
+          <!-- <div id="message">
             <h3>Password must contain the following:</h3>
             <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
             <p id="capital" class="invalid">
@@ -116,7 +110,7 @@
             </p>
             <p id="number" class="invalid">A <b>number</b></p>
             <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-          </div>
+          </div> -->
         </div>
       </form>
       <!-- /end login form -->
