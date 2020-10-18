@@ -44,6 +44,7 @@ registerationForm.addEventListener("submit", async (e) => {
       { name, email, password },
       config
     );
+    console.log(res.data);
     alert("You have been registered successfully");
   } catch (err) {
     const errors = err.response.data.errors;
