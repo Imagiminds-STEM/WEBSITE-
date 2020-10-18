@@ -42,7 +42,7 @@ router.post(
         return res.status(400).send({ errors: errors.array() });
       }
 
-      console.log(req.body);
+      // console.log(req.body);
 
       // Look if user with this email id already exists
       const { name, email, password } = req.body;
@@ -51,7 +51,9 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already exists" }] });
+          .json({
+            errors: [{ msg: "Verification email has been sent to you" }],
+          });
       }
 
       // Generate a token for the user
@@ -213,7 +215,6 @@ router.post("/logout", auth, async (req, res) => {
     res.status(500).send({ error: e || "Server error" });
   }
 });
-
 
 router.get("/reset-password", (req, res) => {
   res.sendFile("reset.html", { root: "./Imagi1/" });

@@ -1,4 +1,5 @@
 const registerationForm = document.getElementById("reg-form");
+var errors = document.getElementById("error2-div");
 
 registerationForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -20,9 +21,16 @@ registerationForm.addEventListener("submit", async (e) => {
       { name, email, password },
       config
     );
-    console.log(res.data);
-    alert("You have been registered successfully");
-    window.location.href = "http://localhost:5000";
+    // console.log(res.data);
+
+    var para = document.createElement("P");
+    var t = document.createTextNode("You have registered successfully");
+    para.appendChild(t);
+    errors.appendChild(para);
+
+    setTimeout(20, () => {
+      window.location.href = "http://localhost:5000";
+    });
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
