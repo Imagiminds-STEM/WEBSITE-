@@ -8,6 +8,7 @@ registerationForm.addEventListener("submit", async (e) => {
   // console.log(e.target.name.value);
   // console.log(e.target.email.value);
   // console.log(e.target.password1.value);
+
   try {
     const config = {
       headers: {
@@ -21,6 +22,7 @@ registerationForm.addEventListener("submit", async (e) => {
     );
     console.log(res.data);
     alert("You have been registered successfully");
+    window.location.href = "http://localhost:5000";
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
