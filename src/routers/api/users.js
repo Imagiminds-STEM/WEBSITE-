@@ -12,8 +12,8 @@ const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "email",
-    pass: "password",
+    user: "imagiminds.dt@gmail.com",
+    pass: "devanshi1234",
   },
   tls: {
     rejectUnauthorized: false,
@@ -139,7 +139,7 @@ router.post("/forgot", async (req, res) => {
   }
   const token = user.generateAuthToken();
   let mailDetails = {
-    from: "email",
+    from: "imagiminds.dt@gmail.com",
     to: e,
     subject: "Reset password",
     html:
