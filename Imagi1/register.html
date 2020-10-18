@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+	<script src="assets/js/scripts.js"></script>
 
 	<!-- CSS here -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -24,6 +25,7 @@
 	<link rel="stylesheet" href="assets/css/slick.css">
 	<link rel="stylesheet" href="assets/css/nice-select.css">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <!-- ? Preloader Start -->
@@ -44,7 +46,7 @@
 
 <main class="login-body" data-vide-bg="assets/img/login-bg.mp4">
     <!-- Login Admin -->
-    <form class="form-default" action="/register" method="POST">
+    <form class="form-default" action="/api/users/" method="POST">
         
         <div class="login-form">
             <!-- logo-login -->
@@ -63,14 +65,23 @@
             </div>
             <div class="form-input">
                 <label for="name">Password</label>
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Password"  id="p1" onkeyup="typefun()" onfocus="focusfun()" onblur="blurfun()" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"placeholder="Password" required>
             </div>
             <div class="form-input">
                 <label for="name">Confirm Password</label>
-                <input type="password" name="password" placeholder="Confirm Password">
+                <input type="password" name="password" placeholder="Confirm Password" id="p2" onkeyup="passcheck()" onfocus="fun1()" onblur="fun2()" required>
             </div>
+	    <input type="checkbox" class="chkbx2" onclick="clickfun()"><label id="l1">&nbsp Show password</label></input>
+            <span id="msg"></span><br><br>
             <div class="form-input pt-30">
                 <input type="submit" name="submit" value="Register">
+            </div>
+	    <div id="message">
+                  <h3>Password must contain the following:</h3>
+                  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                  <p id="number" class="invalid">A <b>number</b></p>
+                  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
             </div>
             <!-- Forget Password -->
             <a href="/login" class="registration">login</a>
