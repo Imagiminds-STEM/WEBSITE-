@@ -7,7 +7,7 @@ const api_key = config.api_key;
 const list_id = config.list_id;
 
 router.post("/contact", (req, res) => {
-  const { name, contact, email } = req.body;
+  const { name, contact, email, text } = req.body;
 
   console.log(list_id);
   console.log(api_key);
@@ -20,6 +20,7 @@ router.post("/contact", (req, res) => {
         merge_fields: {
           FNAME: name,
           PHONE: contact,
+          TEXT: text,
         },
       },
     ],
