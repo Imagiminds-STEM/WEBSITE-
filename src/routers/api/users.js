@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
-const gravatar = require("gravatar");
 const auth = require("../../middleware/auth");
 var path = require("path");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const nodemailer = require("nodemailer");
 
@@ -41,7 +42,7 @@ router.post(
         return res.status(400).send({ errors: errors.array() });
       }
 
-      // console.log(req.body);
+      console.log(req.body);
 
       // Look if user with this email id already exists
       const { name, email, password } = req.body;
@@ -54,7 +55,7 @@ router.post(
       }
 
       // Generate a token for the user
-      const newUser = await new User({ name, email, password, avatar });
+      const newUser = await new User({ name, email, password });
       const token = await newUser.generateAuthToken();
 
       // Register user
@@ -94,6 +95,7 @@ router.post(
       // Send msg to client
       res.status(201).send({ user: newUser, token });
     } catch (e) {
+      console.log(e);
       res.status(500).send({ errors: [{ msg: "Unable to Register" }] });
     }
   }
