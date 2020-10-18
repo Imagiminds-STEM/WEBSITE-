@@ -42,16 +42,15 @@ router.post(
         return res.status(400).send({ errors: errors.array() });
       }
 
-      console.log(req.body);
+      // console.log(req.body);
 
       // Look if user with this email id already exists
       const { name, email, password } = req.body;
       let user = await User.findOne({ email });
-      console.log(user);
       if (user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "User already exists" }] });
+        return res.status(400).json({
+          errors: [{ msg: "Verification email has been sent to you" }],
+        });
       }
 
       // Generate a token for the user
@@ -86,7 +85,7 @@ router.post(
             return;
           }
           console.log("Message sent successfully!");
-          console.log(info);
+          // console.log(info);
           transporter.close();
         }
       );
@@ -117,10 +116,11 @@ router.post("/login", async (req, res) => {
       req.body.password
     );
     if (!user) {
-      return res.status(404).json({ errors: [{ msg: "User doesn't exist" }] });
+      return res.status(404).json({ errors: [{ msg: "No such user exists" }] });
     }
 
     const token = await user.generateAuthToken();
+
     res.status(200).json({ msg: "User logged in successfully!", user, token });
   } catch (e) {
     res
@@ -153,7 +153,13 @@ router.post("/forgot", async (req, res) => {
     else console.log("mail sent");
   });
   // res.send("check your inbox");
-  res.redirect("/");
+  //res.redirect("/");
+  function f1()
+  {
+    res.redirect("/");
+  }
+
+  setTimeout(f1,4000000);
 });
 
 router.post("/finalreset", async (req, res) => {
@@ -166,10 +172,15 @@ router.post("/finalreset", async (req, res) => {
   user.password = p;
   await user.save();
   console.log(user.email + " " + user.password);
-  res.redirect("/login");
+ // res.redirect("/login");
+   function f2()
+  {
+    res.redirect("/login"); 
+  }
+  setTimeout(f2,4000000);
 
   // res.send("check your inbox");
-  res.redirect("/");
+ // res.redirect("/");
 });
 
 // @route   GET api/users
@@ -213,7 +224,6 @@ router.post("/logout", auth, async (req, res) => {
     res.status(500).send({ error: e || "Server error" });
   }
 });
-
 
 router.get("/reset-password", (req, res) => {
   res.sendFile("reset.html", { root: "./Imagi1/" });

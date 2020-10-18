@@ -3825,11 +3825,12 @@ hr {
   top: 50%;
   left: 50%;
   width: 480px;
-  padding: 90px 45px 60px 45px;
+  padding: 30px 45px 60px 45px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  height: 90%;
 }
 @media (max-width: 575px) {
   .login-form {
