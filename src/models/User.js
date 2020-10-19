@@ -28,6 +28,17 @@ const userSchema = new Schema(
         },
       },
     ],
+    verification_token :
+    {
+      type:String,
+      required:true,
+    },
+    verified:
+    {
+      type : Boolean,
+      required:true,
+      default:false,
+    },
     courses: [
       {
         course: {
@@ -59,6 +70,7 @@ userSchema.methods.generateAuthToken = async function () {
   const token = await jwt.sign(payload, JWT_SECRET, { expiresIn: "2 days" });
 
   user.tokens = user.tokens.concat({ token });
+  user.verification_token=token;
 
   await user.save();
 
@@ -83,6 +95,11 @@ userSchema.statics.findByEmail = async(email) =>{
   const user = await User.findOne({ email });
   return user;
 };
+
+userSchema.statics.deleteUser = async(email)=>{
+  const user = this;
+  user.deleteOne();
+}
 
 userSchema.pre("save", async function (next) {
   const user = this;
