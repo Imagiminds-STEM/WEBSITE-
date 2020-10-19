@@ -41,64 +41,66 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).send({ errors: errors.array() });
       }
-
-      // console.log(req.body);
-
-      // Look if user with this email id already exists
       const { name, email, password } = req.body;
       let user = await User.findOne({ email });
+      console.log(user);
       if (user) {
-        return res.status(400).json({
-          errors: [{ msg: "Verification email has been sent to you" }],
-        });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "User already exists" }] });
       }
-
-      // Generate a token for the user
       const newUser = await new User({ name, email, password });
       const token = await newUser.generateAuthToken();
 
       // Register user
       await newUser.save();
 
-      //email verification
-      var date = new Date();
-      var mail = {
-        email: email,
-        created: date.toString(),
+      //send verification mail
+      let mailDetails = {
+        from: "imagiminds.dt@gmail.com",
+        to: email,
+        subject: "Verification email",
+        text: "Hi "+ name+" ! Reset your password with this link",
+        html:
+          '<a href="http://localhost:5000/verify/'+token+'/'+email+'">Verify my account</a>'
       };
+    
+      transporter.sendMail(mailDetails, (err, data) => {
+        if (err) console.log(err);
+        else console.log("mail sent");
+      });
 
-      const token_mail_verification = jwt.sign(email, config.JWT_SECRET, {});
-
-      //var url = config.baseUrl + "verify?email=" + token_mail_verification;
-
-      // send mail with defined transport object
-      let info = await transporter.sendMail(
-        {
-          from: '"Name" <email>', // sender address
-          to: email,
-          subject: "Welcome to Imagiminds", // Subject line
-          text: "Thank you for creating an account with Imagiminds", //+ url,  plain text body
-        },
-        (error, info) => {
-          if (error) {
-            console.log(error);
-            return;
-          }
-          console.log("Message sent successfully!");
-          // console.log(info);
-          transporter.close();
-        }
-      );
-      //email verification
-
-      // Send msg to client
-      res.status(201).send({ user: newUser, token });
-    } catch (e) {
+      res.send("Check your inbox");
+    }catch (e) {
       console.log(e);
       res.status(500).send({ errors: [{ msg: "Unable to Register" }] });
     }
   }
-);
+); 
+
+
+
+
+
+router.get("/verify/:token/:email",async(req,res)=>{
+  console.log(req.params.token);
+  console.log(req.params.email);
+  const email=req.params.email;
+  let user = await User.findOne({ email });
+  console.log(user);
+  console.log(user.verification_token);
+  if(req.params.token==user.verification_token)
+  {
+    user.verified=true;
+    await user.save();
+    //res.send("Account is verified");
+
+  }
+  else{
+    await user.deleteUser();
+  }
+  res.redirect("/login");
+})
 
 // @route   POST api/users/login
 // @desc    Login user
@@ -116,12 +118,17 @@ router.post("/login", async (req, res) => {
       req.body.password
     );
     if (!user) {
-      return res.status(404).json({ errors: [{ msg: "No such user exists" }] });
+      return res.status(404).json({ errors: [{ msg: "User doesn't exist" }] });
     }
-
-    const token = await user.generateAuthToken();
-
-    res.status(200).json({ msg: "User logged in successfully!", user, token });
+    if(user.verified==true)
+    {
+      const token = await user.generateAuthToken();
+      res.status(200).json({ msg: "User logged in successfully!", user, token });
+    }
+    else
+    {
+      res.status(500).send({errors:[{ msg: "Account is not verified" }]});
+    }
   } catch (e) {
     res
       .status(500)
