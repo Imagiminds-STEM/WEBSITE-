@@ -167,18 +167,13 @@
                             <input type="email" id="input-email" class="form-control form-control-alternative" name='e' placeholder="user@example.com">
                           </div>
                         </div>
-                        <div class="col-lg-6">
-                          <div class="form-input">
-                            <label class="form-control-label" for="input-password">Password</label>
-                            <input type="password" id="input-password" class="form-control form-control-alternative" name='pwd' placeholder="****">
-                          </div>
-                        </div>
+                        
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
                           <div class="form-input">
                             <label class="form-control-label" for="input-first-name">Full name</label>
-                            <input type="text" id="input-first-name" class="form-control form-control-alternative" name='name' placeholder="As to be printed on the certificate" >
+                            <input type="text" id="input-first-name" class="form-control form-control-alternative" name='name' placeholder="As to be printed on the certificate" value="<%= name.split("_").join(" ") %>">
                           </div>
                         </div>
                         <input type="hidden" name='email' value=<%= email %>>
