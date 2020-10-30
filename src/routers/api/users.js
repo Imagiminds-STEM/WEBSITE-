@@ -250,9 +250,11 @@ router.post("/userprofile",async(req,res)=>{
 router.post("/editprofile",async(req,res)=>{
   console.log(req.body.email)
   var e= req.body.email;
-    var user  = await User.findByEmail(e);
+  var user  = await User.findByEmail(e);
   //res.sendFile("users.html", { root: "./Imagi1/" });
-  res.render("edituser",{name:user.name,email:user.email,password:user.password});
+  var n = user.name.split(" ").join("_");
+  console.log(n);
+  res.render("edituser",{name:n,email:user.email,password:user.password});
 })
 
 router.post("/savechanges",async(req,res)=>{
@@ -260,19 +262,19 @@ router.post("/savechanges",async(req,res)=>{
    var user  = await User.findByEmail(e);
    var email = req.body.e;
    var name= req.body.name;
-   var pwd= req.body.pwd;
    if(user)
    {
      user.name=name;
      user.email=email;
-     user.password=pwd;
+     //user.password=pwd;
      await user.save();
-     res.render("users",{name:user.name,email:user.email,password:user.password,courses:user.courses});
+     //res.send("Profile updated");
+     //res.status(200).send("Profile updated");
+     res.render("users",{name:user.name,email:user.email,password:user.password,courses:user.courses})
    }
    else
-    res.status(500).send("Invalid details");
+    res.status(500).send("Cannot update your details");
 })
-
 router.get("/reset-password", (req, res) => {
   res.sendFile("reset.html", { root: "./Imagi1/" });
 });
