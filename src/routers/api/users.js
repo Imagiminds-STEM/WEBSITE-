@@ -232,6 +232,47 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
+router.get("/userlogin",async(req,res)=>{
+    var e= req.query.email;
+    var user  = await User.findByEmail(e);
+   // res.sendFile("user.html", options);
+   res.render("user",{name:user.name,email:user.email});
+})
+
+router.post("/userprofile",async(req,res)=>{
+  console.log(req.body.email)
+  var e= req.body.email;
+    var user  = await User.findByEmail(e);
+  //res.sendFile("users.html", { root: "./Imagi1/" });
+  res.render("users",{name:user.name,email:user.email,password:user.password,courses:user.courses});
+})
+
+router.post("/editprofile",async(req,res)=>{
+  console.log(req.body.email)
+  var e= req.body.email;
+    var user  = await User.findByEmail(e);
+  //res.sendFile("users.html", { root: "./Imagi1/" });
+  res.render("edituser",{name:user.name,email:user.email,password:user.password});
+})
+
+router.post("/savechanges",async(req,res)=>{
+   var e =req.body.email;
+   var user  = await User.findByEmail(e);
+   var email = req.body.e;
+   var name= req.body.name;
+   var pwd= req.body.pwd;
+   if(user)
+   {
+     user.name=name;
+     user.email=email;
+     user.password=pwd;
+     await user.save();
+     res.render("users",{name:user.name,email:user.email,password:user.password,courses:user.courses});
+   }
+   else
+    res.status(500).send("Invalid details");
+})
+
 router.get("/reset-password", (req, res) => {
   res.sendFile("reset.html", { root: "./Imagi1/" });
 });
