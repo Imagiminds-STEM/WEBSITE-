@@ -30,10 +30,7 @@ registerationForm.addEventListener("submit", async (e) => {
     para.style.margin = "10px auto";
     para.style.background = "white";
     errorsDiv.appendChild(para);
-
-    setTimeout(20, () => {
-      window.location.href = "http://localhost:5000";
-    });
+    window.location.href = "https://imagiminds.herokuapp.com/";
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
