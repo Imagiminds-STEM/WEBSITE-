@@ -4,7 +4,7 @@ const path = require("path");
 const userRouter = require("./src/routers/api/users");
 const publicRouter = require("./src/routers/publicRoutes/publicRouter");
 var bodyParser = require("body-parser");
-let ejs=require('ejs');
+let ejs = require("ejs");
 
 const app = express();
 
@@ -48,14 +48,13 @@ app.get("/register", (req, res) => {
 app.use("/api/users", userRouter);
 app.use("/publicRoutes", publicRouter);
 
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"/Imagi1/views"));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/Imagi1/views"));
 // Define routes
 app.use("/api/users", require("./src/routers/api/users"));
 //var users = require("./src/routers/api/users.js");
 var users = require("./src/routers/api/users.js");
-app.use("/",users);
-
+app.use("/", users);
 
 const PORT = process.env.PORT || 5000;
 
