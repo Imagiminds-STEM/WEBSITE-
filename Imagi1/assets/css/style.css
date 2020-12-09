@@ -6214,3 +6214,13 @@ del {
 .switch-wrap {
   margin-bottom: 10px;
 }
+.add_bottom_45{
+  margin: 10px;
+  padding: 10px;
+}
+#list_feat{
+  margin-top: 20px;
+}
+.container{
+  width: 100%;
+}
